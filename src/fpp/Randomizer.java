@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * This class' function is to pick out a random data value from a data set and perform statistical operations.
@@ -29,6 +30,31 @@ public class Randomizer {
 		}
 	}
 	
+	// Output the requested ammount of random data elements.
+	// Limit should not be greater than dataset size
+	public String getRandomLimit() {
+		ArrayList<String> chosenData = new ArrayList<String>();
+		String output = "";
+		
+		// Randomly insert chosen data into new list. Do not add repeats.
+		while (chosenData.size() < limit) {
+			int randomNumber = Math.abs(ThreadLocalRandom.current().nextInt() % dataSet.size());
+			String nextData = dataSet.get(randomNumber);
+			if (!chosenData.contains(nextData)) {
+				chosenData.add(nextData);
+				output += (nextData + "\n");
+			}
+		}
+		
+		return output;
+	}
+	
+	// Outputs a random value in the dataset
+	public String getRandom() {
+		int randomNumber = Math.abs(ThreadLocalRandom.current().nextInt() % dataSet.size());
+		return dataSet.get(randomNumber);
+	}
+	
 	/**
 	 * Called in the constructor to populate the dataSet.
 	 */
@@ -44,6 +70,7 @@ public class Randomizer {
 				dataSet.add(nextDataEntry);
 				nextDataEntry = br.readLine();
 			}
+			br.close();
 		} catch (Exception e) {
 			System.err.print(e);
 			return false;

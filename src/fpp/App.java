@@ -9,7 +9,9 @@ public class App {
 		int resultsLimit = 3;
 		
 		Randomizer randomizer = new Randomizer(resultsLimit, fileName);
-		randomizer.printAll();
+		// randomizer.printAll();
+		System.out.println("Lets go to " + randomizer.getRandom());
+		System.out.println("The top picks are:\n" + randomizer.getRandomLimit());
 	}
 
 }
